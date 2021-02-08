@@ -1,4 +1,4 @@
-# This is the main file for MyInvaders.
+# this is the main file for pyinvaders using classes from pongtwo.
 
 from tkinter import *
 import table, ball, bat, random
@@ -8,21 +8,18 @@ window = Tk()
 window.title("MyInvaders")
 my_table = table.Table(window)
 
-# add background image
+# make it look like outer space
 starry_night_image = PhotoImage(file = "stars.gif")
 my_table.canvas.create_image(0, 0, anchor=NW, image = starry_night_image, tags="bg_img")
-
-# move the image to bottom of image stack (so the scoreboard can be seen above the background)
-# by moving any canvas objects tagged as "bg_img" to the back using the lower() method
 my_table.canvas.lower("bg_img")
 
-# initialise global variables
+# globals
 x_velocity = 0
 y_velocity = -10
 first_serve=True
 direction = "right"
 
-# order a missile from the ball class
+# order a projectile from the ball class
 my_ball = ball.Ball(table=my_table, x_speed=x_velocity, y_speed=y_velocity,
                     height=15, width=8, colour="black")
 
@@ -34,7 +31,7 @@ bat_B = bat.Bat(table=my_table, width=50, height=30,
 invaders = []
 rows=0
 gap=30
-colour = ("green", "orange", "yellow", "purple")
+colour = ("green", "orange", "yellow", "purple", "red")
 while rows < 5:
     n=1
     while n < 7:
@@ -45,7 +42,7 @@ while rows < 5:
         n = n+1
     rows = rows+1
 
-#### Functions:        
+#define the functions:        
 def game_flow():
     global first_serve
     global direction
@@ -55,7 +52,7 @@ def game_flow():
         my_ball.stop_ball()
         first_serve = False
 
-    # detect if missile has hit an invader:
+    # detect a collision:
     for b in invaders:
         if(b.detect_collision(my_ball, sides_sweet_spot=False) != None):
             my_table.remove_item(b.rectangle)                
@@ -102,8 +99,8 @@ def restart_game(master):
     my_ball.x_posn = (bat_B.x_posn + bat_B.width/2)
     my_ball.y_posn = bat_B.y_posn
 
-# Moves invaders to left or right and looks to see if they should be moved down
-# returns true if direction must change
+# moves invaders to left or right and looks to see if they should be moved down
+# should return true if change of direction needed
 def move_brick_next(brick, direction):
     if(direction == "left"):
         brick.move_left(brick)
@@ -135,8 +132,6 @@ def hide_missile():
 # bind the controls of the bat to keys on the keyboard
 window.bind("<Left>", bat_B.move_left)
 window.bind("<Right>", bat_B.move_right)
-
-# bind restart to spacebar
 window.bind("<space>", restart_game)
 
 game_flow()
