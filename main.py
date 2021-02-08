@@ -5,7 +5,7 @@ import table, ball, bat, random
 
 
 window = Tk()
-window.title("MyInvaders")
+window.title("pyinvaders")
 my_table = table.Table(window)
 
 # make it look like outer space
@@ -23,7 +23,7 @@ direction = "right"
 my_ball = ball.Ball(table=my_table, x_speed=x_velocity, y_speed=y_velocity,
                     height=15, width=8, colour="black")
 
-# order a defender from the bat class
+# order a player ship at the bottom from the bat class
 bat_B = bat.Bat(table=my_table, width=50, height=30,
                 x_posn=250, y_posn=350, colour="blue")
 
