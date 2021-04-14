@@ -5,7 +5,7 @@ import table, ball, bat, random
 
 
 window = Tk()
-window.title("pyinvaders")
+window.title("Python Invaders - David Ikin - github.com/deye1986")
 my_table = table.Table(window)
 
 # make it look like outer space
